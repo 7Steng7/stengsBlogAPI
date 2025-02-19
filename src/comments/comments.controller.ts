@@ -31,6 +31,9 @@ export class CommentsController {
     return this.commentsService.findOne(id);
   }
 
+  @ApiOperation({ summary: 'Responder a un comentario' })
+  @ApiResponse({ status: 200, description: 'Comentario respondido' })
+  @ApiResponse({ status: 404, description: 'Comentario no encontrado' })
   @Post(':id/reply')
   async reply(@Param('id') id: string, @Body('reply') reply: string) {
     return this.commentsService.replyToComment(id, reply);

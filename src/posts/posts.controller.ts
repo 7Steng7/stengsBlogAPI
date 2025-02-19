@@ -21,7 +21,7 @@ export class PostsController {
 
   @ApiOperation({ summary: 'Crear una nueva publicación' })
   @ApiResponse({ status: 201, description: 'Publicación creada' })
-  @ApiBody({ type: CreatePostDto }) // Especifica el DTO para el cuerpo de la solicitud
+  @ApiBody({ type: CreatePostDto })
   @Post()
   async create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
@@ -35,12 +35,18 @@ export class PostsController {
     return this.postsService.findOne(id);
   }
 
+  @ApiOperation({ summary: 'Obtener una publicación ,filtrando por etiquetas' })
+  @ApiResponse({ status: 200, description: 'Muestra las publicaciones filtradas' })
+  @ApiResponse({ status: 404, description: 'Publicación no encontrada' })
   @Get('filter')
   async findByTags(@Query('tags') tags: string) {
     const tagArray = tags.split(',');
     return this.postsService.findByTags(tagArray);
   }
 
+  @ApiOperation({ summary: 'Obtener las publicaciones más populares' })
+  @ApiResponse({ status: 200, description: 'Publicaciones populares' })
+  @ApiResponse({ status: 404, description: 'Publicaciones no encontradas' })
   @Get('popular')
   async getPopularPosts() {
     return this.postsService.getPopularPosts();

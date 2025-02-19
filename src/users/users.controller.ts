@@ -17,7 +17,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Crear un nuevo usuario' })
   @ApiResponse({ status: 201, description: 'Usuario creado' })
-  @ApiBody({ type: CreateUserDto }) // Especifica el DTO para el cuerpo de la solicitud
+  @ApiBody({ type: CreateUserDto })
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
