@@ -20,4 +20,16 @@ export class CommentsService {
   async findOne(id: string): Promise<Comment | null> {
     return this.commentModel.findById(id).exec();
   }
+
+  async replyToComment(commentId: string, reply: string): Promise<Comment> {
+    const updatedComment = await this.commentModel.findByIdAndUpdate(
+      commentId,
+      { $push: { replies: reply } },
+      { new: true },
+    ).exec();
+    if (!updatedComment) {
+      throw new Error('Comment not found');
+    }
+    return updatedComment;
+  }
 }

@@ -30,4 +30,9 @@ export class CommentsController {
   async findOne(@Param('id') id: string) {
     return this.commentsService.findOne(id);
   }
+
+  @Post(':id/reply')
+  async reply(@Param('id') id: string, @Body('reply') reply: string) {
+    return this.commentsService.replyToComment(id, reply);
+  }
 }

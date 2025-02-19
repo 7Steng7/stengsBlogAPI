@@ -13,11 +13,20 @@ export class PostsService {
     return createdPost.save();
   }
 
-  async findAll(): Promise<Post[]> {
-    return this.postModel.find().populate('author').exec();
+  async findAllPaginated(page: number, limit: number, sort: string): Promise<Post[]> {
+    const skip = (page - 1) * limit;
+    return this.postModel.find().sort(sort).skip(skip).limit(limit).exec();
   }
 
   async findOne(id: string): Promise<Post | null> {
     return this.postModel.findById(id).populate('author').exec();
+  }
+
+  async findByTags(tags: string[]): Promise<Post[]> {
+    return this.postModel.find({ tags: { $in: tags } }).exec();
+  }
+
+  async getPopularPosts(): Promise<Post[]> {
+    return this.postModel.find().sort({ views: -1 }).limit(5).exec();
   }
 }

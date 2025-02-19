@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
@@ -11,8 +11,12 @@ export class PostsController {
   @ApiOperation({ summary: 'Obtener todas las publicaciones' }) // Descripción del endpoint
   @ApiResponse({ status: 200, description: 'Publicaciones encontradas' }) // Respuesta esperada
   @Get()
-  async findAll() {
-    return this.postsService.findAll();
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('sort') sort: string = '-createdAt',
+  ) {
+    return this.postsService.findAllPaginated(page, limit, sort);
   }
 
   @ApiOperation({ summary: 'Crear una nueva publicación' })
@@ -29,5 +33,16 @@ export class PostsController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
+  }
+
+  @Get('filter')
+  async findByTags(@Query('tags') tags: string) {
+    const tagArray = tags.split(',');
+    return this.postsService.findByTags(tagArray);
+  }
+
+  @Get('popular')
+  async getPopularPosts() {
+    return this.postsService.getPopularPosts();
   }
 }
