@@ -17,7 +17,7 @@ export class CommentsController {
 
   @ApiOperation({ summary: 'Crear un nuevo comentario' })
   @ApiResponse({ status: 201, description: 'Comentario creado' })
-  @ApiBody({ type: CreateCommentDto }) // Especifica el DTO para el cuerpo de la solicitud
+  @ApiBody({ type: CreateCommentDto })
   @Post()
   async create(@Body() createCommentDto: CreateCommentDto) {
     return this.commentsService.create(createCommentDto);

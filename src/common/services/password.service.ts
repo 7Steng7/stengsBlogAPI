@@ -9,7 +9,6 @@ export class PasswordService {
     return bcrypt.hash(password, saltRounds);
   }
 
-  // Compara una contraseña con su versión hasheada
   async comparePassword(
     plainPassword: string,
     hashedPassword: string,
