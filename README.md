@@ -4,7 +4,7 @@
 
 ---
 
-## **Características Principales**
+## **Características Principales** 📊
 
 - **Gestión de Publicaciones**: Crea, lee, actualiza y elimina publicaciones de blog.
 - **Autenticación de Usuarios**: Registro y autenticación de usuarios con contraseñas hasheadas.
@@ -16,7 +16,7 @@
 
 ---
 
-## **Tecnologías Utilizadas**
+## **Tecnologías Utilizadas** 💻
 
 - **NestJS**: Framework de Node.js para construir aplicaciones escalables y eficientes.
 - **MongoDB**: Base de datos NoSQL para almacenar publicaciones, usuarios y comentarios.
@@ -24,5 +24,7 @@
 - **bcrypt**: Para hashear contraseñas y garantizar la seguridad de los usuarios.
 - **Swagger**: Para documentar la API de manera automática.
 - **Jest**: Para pruebas unitarias y de integración.
+- **JWT**: Para autenticar usuarios y proporcionar acceso a las API.
+- **Docker**: Para desplegar la aplicación en un entorno de pruebas.
 
 ---
