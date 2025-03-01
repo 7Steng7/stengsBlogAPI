@@ -12,6 +12,7 @@ export class UsersService {
     private passwordService: PasswordService,
   ) {}
 
+  //Create a new user
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { password, ...rest } = createUserDto;
     const hashedPassword = await this.passwordService.hashPassword(password);
@@ -22,10 +23,12 @@ export class UsersService {
     return createdUser.save();
   }
 
+  //Find all users
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 
+  // Find one user by ID
   async findOne(id: string): Promise<User | null> {
     return this.userModel.findById(id).exec();
   }
