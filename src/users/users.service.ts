@@ -12,7 +12,6 @@ export class UsersService {
     private passwordService: PasswordService,
   ) {}
 
-  //Create a new user
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { password, ...rest } = createUserDto;
     const hashedPassword = await this.passwordService.hashPassword(password);

@@ -8,19 +8,23 @@ import { CreateCommentDto } from './dtos/create-comment.dto';
 export class CommentsService {
   constructor(@InjectModel(Comment.name) private commentModel: Model<Comment>) {}
 
+  //Create a new comment
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
     const createdComment = new this.commentModel(createCommentDto);
     return createdComment.save();
   }
-
+  
+  //Find all comments
   async findAll(): Promise<Comment[]> {
     return this.commentModel.find().exec();
   }
 
+  //Find a comment by ID
   async findOne(id: string): Promise<Comment | null> {
     return this.commentModel.findById(id).exec();
   }
 
+  //Reply to a comment
   async replyToComment(commentId: string, reply: string): Promise<Comment> {
     const updatedComment = await this.commentModel.findByIdAndUpdate(
       commentId,
