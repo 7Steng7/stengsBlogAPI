@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
@@ -31,5 +31,23 @@ export class UsersService {
   // Find one user by ID
   async findOne(id: string): Promise<User | null> {
     return this.userModel.findById(id).exec();
+  }
+
+  async updatePassword(userId: string, newPassword: string): Promise<User> {
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    const hashedPassword = await this.passwordService.hashPassword(newPassword);
+    user.password = hashedPassword;
+    return user.save();
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    return user;
   }
 }
