@@ -10,11 +10,10 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @ApiOperation({ summary: 'Obtener todas las publicaciones' }) // Descripción del endpoint
-  @ApiResponse({ status: 200, description: 'Publicaciones encontradas' }) // Respuesta esperada
+  @ApiOperation({ summary: 'Obtener todas las publicaciones' }) 
+  @ApiResponse({ status: 200, description: 'Publicaciones encontradas' })
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @Get()
-  @UseGuards(JwtAuthGuard)
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -28,7 +27,6 @@ export class PostsController {
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @ApiBody({ type: CreatePostDto })
   @Post()
-  @UseGuards(JwtAuthGuard)
   async create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
@@ -38,7 +36,6 @@ export class PostsController {
   @ApiResponse({ status: 404, description: 'Publicación no encontrada' })
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
