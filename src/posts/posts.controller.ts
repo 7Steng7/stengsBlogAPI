@@ -14,6 +14,7 @@ export class PostsController {
   @ApiResponse({ status: 200, description: 'Publicaciones encontradas' })
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -27,6 +28,7 @@ export class PostsController {
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @ApiBody({ type: CreatePostDto })
   @Post()
+  @UseGuards(JwtAuthGuard)
   async create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
@@ -36,6 +38,7 @@ export class PostsController {
   @ApiResponse({ status: 404, description: 'Publicación no encontrada' })
   @ApiResponse({ status: 401, description: 'No autorizado' })
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
@@ -49,7 +52,7 @@ export class PostsController {
   async findByTags(@Query('tags') tags: string) {
     const tagArray = tags.split(',');
     return this.postsService.findByTags(tagArray);
-  }
+  } 
 
   @ApiOperation({ summary: 'Obtener las publicaciones más populares' })
   @ApiResponse({ status: 200, description: 'Publicaciones populares' })

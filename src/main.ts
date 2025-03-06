@@ -4,8 +4,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  // Configuración de Swagger
+  app.enableCors();
+  
   const config = new DocumentBuilder()
     .setTitle('Blog API')
     .setDescription('API para gestionar publicaciones, usuarios y comentarios')

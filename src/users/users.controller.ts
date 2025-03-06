@@ -52,7 +52,8 @@ export class UsersController {
   @ApiBody({ type: CreateUserDto })
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    const userWithRole = { ...createUserDto, role: 'user' };
+    return this.usersService.create(userWithRole);
   }
 
   @ApiOperation({ summary: 'Actualizar la contraseña del usuario' })

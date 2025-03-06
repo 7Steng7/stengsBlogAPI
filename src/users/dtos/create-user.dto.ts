@@ -13,9 +13,4 @@ export class CreateUserDto {
   @ApiProperty({ description: 'Contraseña', example: 'Unacontraseña!' })
   @IsString()
   password: string;
-
-  @ApiProperty({ description: 'Rol del usuario', example: 'user', required: false })
-  @IsString()
-  @IsOptional()
-  role?: string;
 }
